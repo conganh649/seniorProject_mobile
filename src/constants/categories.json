@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "name": "Food",
+    "image": "https://cdn.tgdd.vn/2020/07/CookProduct/pork-industry-trends-variety-1200x676.jpg",
+    "value": "FOOD"
+  },
+  {
+    "id": "2",
+    "name": "Beverage",
+    "image": "https://cdn.vietnambiz.vn/2019/11/6/576main-15730149389682133543414.jpg",
+    "value": "BEVERAGE"
+  },
+  {
+    "id": "3",
+    "name": "Vegetables",
+    "image": "https://saigonlogo.com/wp-content/uploads/2021/09/kinh-doanh-thuc-pham-online-1024x585.jpg",
+    "value": "VEGETABLES"
+  },
+  {
+    "id": "4",
+    "name": "Personal",
+    "image": "http://brownietroop41176.weebly.com/uploads/1/1/7/9/11794127/1629480_orig.jpg?0",
+    "value": "PERSONAL"
+  }
+]

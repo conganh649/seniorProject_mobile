@@ -1,0 +1,36 @@
+<NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: 'Home',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="home"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            title: 'Profile',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="profile"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}
+        />
+        <Drawer.Screen name="LogIn" component={LogIn} />
+        <Drawer.Screen name="Register" component={Register} />
+        <Drawer.Screen name="EditProfile" component={EditProfile} />
+        <Drawer.Screen name="ChangePassword" component={ChangePassword} />
+        <Drawer.Screen name="AllProducts" component={AllProducts} />
+        <Drawer.Screen name="ProductDetail" component={ProductDetail} />
+      </Drawer.Navigator>
+    </NavigationContainer>

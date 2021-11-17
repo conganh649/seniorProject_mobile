@@ -12,6 +12,12 @@ target 'mobile' do
     :hermes_enabled => false
   )
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'mobileTests' do
     inherit! :complete
     # Pods for testing
