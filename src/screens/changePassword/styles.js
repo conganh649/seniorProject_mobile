@@ -61,4 +61,11 @@ export default StyleSheet.create({
     paddingTop: '3%',
     paddingBottom: '3%',
   },
+  error: {
+    color: '#FF0000',
+    fontSize: 15,
+  },
+  error_msg: {
+    marginTop: 10,
+  },
 });

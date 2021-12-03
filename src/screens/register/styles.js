@@ -14,12 +14,12 @@ export default StyleSheet.create({
     marginBottom: 'auto',
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '70%',
-    height: '70%',
+    width: '80%',
+    height: '80%',
     borderRadius: 5,
   },
   text_header: {
-    marginTop: '2%',
+    marginTop: '5%',
     textAlign: 'center',
     fontSize: 25,
     fontFamily: 'poppins',
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginRight: 'auto',
   },
   input_component: {
-    marginTop: '5%',
+    marginTop: '6%',
   },
   input_label: {
     fontSize: 14,
@@ -88,7 +88,14 @@ export default StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     fontFamily: 'poppins',
-    color: '#4253FF',
+    color: '#39D5D5',
     fontWeight: '700',
+  },
+  error: {
+    color: '#FF0000',
+    fontSize: 15,
+  },
+  error_msg: {
+    marginTop: 10,
   },
 });

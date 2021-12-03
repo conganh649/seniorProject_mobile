@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginRight: 'auto',
   },
   input_component: {
-    marginTop: '15%',
+    marginTop: '10%',
   },
   input_label: {
     fontSize: 14,
@@ -88,7 +88,14 @@ export default StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     fontFamily: 'poppins',
-    color: '#4253FF',
+    color: '#39D5D5',
     fontWeight: '700',
+  },
+  error: {
+    color: '#FF0000',
+    fontSize: 15,
+  },
+  error_msg: {
+    marginTop: 10,
   },
 });

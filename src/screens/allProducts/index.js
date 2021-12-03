@@ -1,92 +1,176 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  ScrollView,
   View,
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  ViewPropTypes,
+  Switch,
 } from 'react-native';
-import {Card, Input, Text, Image} from 'react-native-elements';
+import {Input, Text, Image} from 'react-native-elements';
 import {IconOutline} from '@ant-design/icons-react-native';
-import Header from '../../components/header';
+import AsyncStorage from '@react-native-community/async-storage';
 import {_navigation} from '../../constants';
 import styles from './styles';
-const AllProducts = ({navigation}) => {
-  const [data, setData] = useState([
-    {
-      name: 'Combo 1',
-      price: '300.000 D',
-    },
-    {
-      name: 'Combo 2',
-      price: '400.000 D',
-    },
-    {
-      name: 'Combo 3',
-      price: '500.000 D',
-    },
-    {
-      name: 'Combo 4',
-      price: '123.000 D',
-    },
-    {
-      name: 'Combo 5',
-      price: '240.000 D',
-    },
-    {
-      name: 'Combo 6',
-      price: '270.000 D',
-    },
-    {
-      name: 'Combo 7',
-      price: '80.000 D',
-    },
-  ]);
-  const formatData = (data, numColumns) => {
-    let newData = data;
-    const totalRows = Math.floor(data.length / numColumns);
-    let totalLastRow = data.length - totalRows * numColumns;
-    while (totalLastRow !== 0 && totalLastRow !== numColumns) {
-      newData.push({name: 'Blank', empty: true});
-      totalLastRow++;
+const AllProducts = ({navigation, route}) => {
+  const [data, setData] = useState([]);
+  const [dataShow, setDataShow] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [clicked, setClicked] = useState([]);
+  const [refresh, setRefresh] = useState(true);
+  const handleClick = id => {
+    if (!clicked.includes(id)) {
+      let newClick = clicked;
+      newClick.push(id);
+      setRefresh(!refresh);
+      setClicked(newClick);
+    } else {
+      let newClick = clicked;
+      newClick.splice(newClick.indexOf(id), 1);
+      setClicked(newClick);
+      setRefresh(!refresh);
     }
-    return newData;
+    console.log(clicked);
+  };
+  const handlePriceFormat = price => {
+    return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.');
+  };
+  const loadProduct = async () => {
+    let token = await AsyncStorage.getItem('token');
+    await fetch('https://dutsenior.herokuapp.com/api/products', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        setData(responseJson);
+        if (route.params.category !== '') {
+          console.log('Vao ne mn');
+          console.log(route.params.category);
+          console.log(dataShow);
+          let newShow = responseJson.filter(product =>
+            product.category
+              .toLowerCase()
+              .includes(route.params.category.toLowerCase()),
+          );
+          setDataShow(newShow);
+        } else {
+          setDataShow(
+            responseJson.sort((a, b) =>
+              a.category > b.category ? -1 : b.category > a.category ? 1 : 0,
+            ),
+          );
+        }
+
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    setLoading(true);
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      setData([]);
+      loadProduct();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+  const handleSearch = val => {
+    let product = data;
+    let newShow = product.filter(
+      product =>
+        product.productName.toLowerCase().includes(val) ||
+        product.category.toLowerCase().includes(val),
+    );
+    setDataShow(newShow);
   };
   const renderItem = ({item}) => {
     if (item.empty === true) {
       return <View containerStyle={styles.invisible}></View>;
     }
     return (
-      <View style={styles.card_container}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(_navigation.ProductDetail, {
-              back: _navigation.AllProducts,
-            })
-          }>
+      <View
+        style={
+          clicked.includes(item._id)
+            ? styles.card_container
+            : styles.card_container_collapse
+        }>
+        <TouchableOpacity onPress={() => handleClick(item._id)}>
           <Image
-            style={styles.img}
-            source={require('../../assets/images/bg.jpg')}
+            style={
+              clicked.includes(item._id) ? styles.img : styles.img_collapse
+            }
+            source={{uri: item.productThumbnail}}
             PlaceholderContent={
               <View style={styles.loading}>
                 <ActivityIndicator size="large" color="red"></ActivityIndicator>
               </View>
             }></Image>
-          <Text style={styles.text_detail} numberOfLines={1}>
-            {item.name}
+          <Text style={styles.text_detail}>{item.productName}</Text>
+          <Text
+            style={
+              clicked.includes(item._id)
+                ? styles.category
+                : styles.category_collapse
+            }>
+            {item.category}
           </Text>
-          <Text style={styles.text_detail_price} numberOfLines={1}>
-            {item.price}
+          {clicked.includes(item._id) ? (
+            <Text style={styles.description}>{item.description}</Text>
+          ) : null}
+          <Text
+            style={
+              clicked.includes(item._id)
+                ? styles.text_detail_price
+                : styles.text_detail_price_collapse
+            }>
+            {handlePriceFormat(item.price)}
           </Text>
+          <Text
+            style={
+              clicked.includes(item._id)
+                ? styles.quantity
+                : styles.quantity_collapse
+            }>
+            {item.quantity}
+          </Text>
+          {clicked.includes(item._id) ? (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate(_navigation.ProductDetail, {
+                  id: item._id,
+                  navigation: navigation,
+                })
+              }>
+              <Text style={styles.add_to_cart}> Detail</Text>
+            </TouchableOpacity>
+          ) : null}
         </TouchableOpacity>
       </View>
     );
   };
   return (
     <View style={styles.container}>
-      <Input placeholder="Search" style={styles.search_input} />
-      <FlatList data={data} renderItem={renderItem} horizontal></FlatList>
+      <Input
+        placeholder="Search"
+        style={styles.search_input}
+        onChangeText={val => handleSearch(val)}
+      />
+      {loading ? (
+        <View>
+          <ActivityIndicator size="large" color="red"></ActivityIndicator>
+        </View>
+      ) : (
+        <FlatList
+          data={dataShow}
+          renderItem={renderItem}
+          horizontal
+          extraData={refresh}></FlatList>
+      )}
     </View>
   );
 };

@@ -1,10 +1,57 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {SafeAreaView, View, Image, TouchableOpacity} from 'react-native';
 import {Avatar, Title, Caption, Text} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 import {IconOutline} from '@ant-design/icons-react-native';
 import styles from './styles';
 import {_navigation} from '../../constants';
+import {AuthContext} from '../../stores';
 const Profile = ({navigation}) => {
+  const {signOut} = useContext(AuthContext);
+  const [data, setData] = useState({
+    idCard: '',
+    name: '',
+    phoneNumber: '',
+    address: '',
+    dob: '',
+    role: '',
+  });
+  const loadProfile = async () => {
+    let id = await AsyncStorage.getItem('id');
+    let token = await AsyncStorage.getItem('token');
+    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        let date = new Date(responseJson.dateofbirth);
+        let dob =
+          date.getDate() +
+          '/' +
+          (date.getMonth() + 1) +
+          '/' +
+          date.getFullYear();
+        if (responseJson) {
+          setData({
+            ...data,
+            idCard: responseJson.idCard,
+            name: responseJson.fullName,
+            phoneNumber: responseJson.phoneNumber,
+            address: responseJson.address,
+            dob: dob,
+            role: responseJson.role,
+          });
+        }
+      });
+  };
+  useEffect(() => {
+    loadProfile();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user_info_section}>
@@ -13,8 +60,10 @@ const Profile = ({navigation}) => {
             style={styles.image}
             source={require('../../assets/images/bg.jpg')}></Image>
           <View style={{marginLeft: '10%'}}>
-            <Title style={styles.title}>201814586</Title>
-            <Caption style={styles.caption}>@Tran Cong Anh</Caption>
+            <Title style={styles.title}>{data.idCard}</Title>
+            <Caption style={styles.caption}>
+              @{data.name ? data.name : 'NaN'}
+            </Caption>
           </View>
         </View>
       </View>
@@ -22,15 +71,17 @@ const Profile = ({navigation}) => {
       <View style={styles.user_info_section}>
         <View style={styles.row}>
           <IconOutline name="phone" style={styles.icon}></IconOutline>
-          <Text style={styles.text}>0905157666</Text>
+          <Text style={styles.text}>
+            {data.phoneNumber ? data.phoneNumber : 'NaN'}
+          </Text>
         </View>
         <View style={styles.row}>
           <IconOutline name="compass" style={styles.icon}></IconOutline>
-          <Text style={styles.text}>150 Trần Cao Vân</Text>
+          <Text style={styles.text}>{data.address ? data.address : 'NaN'}</Text>
         </View>
         <View style={styles.row}>
           <IconOutline name="calendar" style={styles.icon}></IconOutline>
-          <Text style={styles.text}>01/01/1999</Text>
+          <Text style={styles.text}>{data.dob}</Text>
         </View>
       </View>
 
@@ -40,7 +91,7 @@ const Profile = ({navigation}) => {
             styles.info_box,
             {borderRightColor: '#dddddd', borderRightWidth: 2},
           ]}>
-          <Title style={styles.box_title}>User</Title>
+          <Title style={styles.box_title}>{data.role}</Title>
           <Caption style={styles.caption}>Role</Caption>
         </View>
         <View style={styles.info_box}>
@@ -67,7 +118,10 @@ const Profile = ({navigation}) => {
             <Text style={styles.menu_item_text}>Change password</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            alert('Please contact 093.245.8886 for support');
+          }}>
           <View style={styles.menu_item}>
             <IconOutline
               style={styles.menu_icon}
@@ -76,7 +130,7 @@ const Profile = ({navigation}) => {
             <Text style={styles.menu_item_text}>Support</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => signOut()}>
           <View style={styles.menu_item}>
             <IconOutline
               style={styles.menu_icon}

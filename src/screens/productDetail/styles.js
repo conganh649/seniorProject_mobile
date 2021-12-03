@@ -5,13 +5,13 @@ export default StyleSheet.create({
     flex: 1,
   },
   img: {
-    height: '55%',
+    height: '60%',
     width: '100%',
   },
   detail: {
     left: '5%',
     position: 'absolute',
-    top: '40%',
+    top: '38%',
     width: '90%',
   },
   product_name: {
@@ -36,16 +36,20 @@ export default StyleSheet.create({
     color: '#D10000',
   },
   quantity: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    top: 40,
     fontFamily: 'poppins',
     fontSize: 20,
+    color: '#39D5D5',
   },
   description: {
     fontFamily: 'poppins',
-    fontSize: 20,
+    fontSize: 18,
   },
   select_number: {
     width: '100%',
-    marginTop: 30,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -72,7 +76,7 @@ export default StyleSheet.create({
     fontSize: 25,
   },
   add_to_order: {
-    marginTop: 150,
+    marginTop: 200,
   },
   add_text: {
     marginLeft: 'auto',

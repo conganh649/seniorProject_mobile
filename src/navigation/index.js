@@ -4,9 +4,5 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 
 const AppContainer = () => {
-  return (
-    <NavigationContainer>
-      <RootStack></RootStack>
-    </NavigationContainer>
-  );
+  return <NavigationContainer></NavigationContainer>;
 };

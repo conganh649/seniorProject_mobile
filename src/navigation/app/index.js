@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LogIn from '../../screens/login';
 import Register from '../../screens/register';
 import Home from '../../screens/home';
@@ -7,12 +7,14 @@ import EditProfile from '../../screens/editProfile';
 import ChangePassword from '../../screens/changePassword';
 import AllProducts from '../../screens/allProducts';
 import ProductDetail from '../../screens/productDetail';
+import Cart from '../../screens/cart';
+import UserManage from '../../screens/userManage';
+import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Drawer = createDrawerNavigator();
-
 const drawerStack = {
   Home: {
     screen: Home,
@@ -38,9 +40,31 @@ const drawerStack = {
       ),
     },
   },
+  Cart: {
+    screen: Cart,
+    options: {
+      title: 'Cart',
+      drawerIcon: ({focused}) => (
+        <IconFill
+          name="shopping"
+          size={20}
+          color={focused ? '#39D5D5' : 'black'}></IconFill>
+      ),
+    },
+  },
 };
 
 export const DrawerNavigation = () => {
+  const [role, setRole] = useState();
+  const getRole = async () => {
+    let role = await AsyncStorage.getItem('role');
+    setRole(role);
+  };
+
+  useEffect(() => {
+    getRole();
+    console.log(role);
+  }, []);
   return (
     <Drawer.Navigator>
       {Object.entries({
@@ -52,6 +76,20 @@ export const DrawerNavigation = () => {
           component={component.screen}
           options={{...component.options}}></Drawer.Screen>
       ))}
+      {role === 'Manager' ? (
+        <Drawer.Screen
+          name={'User Manager'}
+          component={UserManage}
+          options={{
+            title: 'User manager',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="folder"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}></Drawer.Screen>
+      ) : null}
     </Drawer.Navigator>
   );
 };
