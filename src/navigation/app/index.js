@@ -8,11 +8,12 @@ import ChangePassword from '../../screens/changePassword';
 import AllProducts from '../../screens/allProducts';
 import ProductDetail from '../../screens/productDetail';
 import Cart from '../../screens/cart';
-import UserManage from '../../screens/userManage';
+import OrderManage from '../../screens/orderManage';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
+import OrderDetail from '../../screens/orderDetail';
 
 const Drawer = createDrawerNavigator();
 const drawerStack = {
@@ -78,10 +79,10 @@ export const DrawerNavigation = () => {
       ))}
       {role === 'Manager' ? (
         <Drawer.Screen
-          name={'User Manager'}
-          component={UserManage}
+          name={'Order Manager'}
+          component={OrderManage}
           options={{
-            title: 'User manager',
+            title: 'Order manager',
             drawerIcon: ({focused}) => (
               <IconFill
                 name="folder"
@@ -92,60 +93,6 @@ export const DrawerNavigation = () => {
       ) : null}
     </Drawer.Navigator>
   );
-};
-
-const appScreen = {
-  Home: {
-    screen: DrawerNavigation,
-    options: {
-      title: 'Home',
-    },
-  },
-  Profile: {
-    screen: Profile,
-    options: {
-      title: 'Profile',
-    },
-  },
-  EditProfile: {
-    screen: EditProfile,
-    options: {
-      title: 'EditProfile',
-    },
-  },
-  ChangePassword: {
-    screen: ChangePassword,
-    options: {
-      title: 'ChangePassword',
-    },
-  },
-  AllProducts: {
-    screen: AllProducts,
-    options: {
-      title: 'AllProducts',
-    },
-  },
-  ProductDetail: {
-    screen: ProductDetail,
-    options: {
-      title: 'ProductDetail',
-    },
-  },
-};
-
-const authScreen = {
-  LogIn: {
-    screen: LogIn,
-    options: {
-      title: 'LogIn',
-    },
-  },
-  Register: {
-    screen: Register,
-    options: {
-      title: 'Register',
-    },
-  },
 };
 
 const Stack = createStackNavigator();
@@ -172,6 +119,7 @@ export const RootStack = () => {
       <Stack.Screen
         name="ProductDetail"
         component={ProductDetail}></Stack.Screen>
+      <Stack.Screen name="OrderDetail" component={OrderDetail}></Stack.Screen>
     </Stack.Navigator>
   );
 };

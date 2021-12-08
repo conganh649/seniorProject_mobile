@@ -109,7 +109,7 @@ const ProductDetail = props => {
         );
       }
       alert('Add to cart successfully');
-      props.navigation.navigate(_navigation.Home);
+      props.navigation.goBack();
     }
   };
 

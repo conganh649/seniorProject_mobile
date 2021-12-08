@@ -5,6 +5,22 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
+  info_view: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  title: {
+    fontSize: 18,
+    color: '#39D5D5',
+    fontFamily: 'poppins',
+    fontWeight: '700',
+  },
+  detail: {
+    fontSize: 18,
+    fontFamily: 'poppins',
+    marginLeft: 5,
+  },
   productCard: {
     width: (width * 9) / 10,
     height: 100,
@@ -76,37 +92,5 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     fontSize: 20,
-  },
-  B: {
-    backgroundColor: '#39D5D5',
-    alignItems: 'center',
-  },
-  C: {
-    height: 10,
-  },
-  D: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  N: {
-    backgroundColor: '#39D5D5',
-    padding: 8,
-    borderRadius: 1000,
-  },
-
-  R: {
-    backgroundColor: '#39D5D5',
-    width: width - 40,
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 5,
-    margin: 20,
-  },
-  S: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
   },
 });

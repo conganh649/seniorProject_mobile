@@ -4,32 +4,22 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  Switch,
 } from 'react-native';
 import {Input, Text, Image} from 'react-native-elements';
-import {IconOutline} from '@ant-design/icons-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {IconFill} from '@ant-design/icons-react-native';
+import * as Animatable from 'react-native-animatable';
 import {_navigation} from '../../constants';
 import styles from './styles';
 const AllProducts = ({navigation, route}) => {
   const [data, setData] = useState([]);
   const [dataShow, setDataShow] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [clicked, setClicked] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showBoard, setShowBoard] = useState(false);
   const [refresh, setRefresh] = useState(true);
-  const handleClick = id => {
-    if (!clicked.includes(id)) {
-      let newClick = clicked;
-      newClick.push(id);
-      setRefresh(!refresh);
-      setClicked(newClick);
-    } else {
-      let newClick = clicked;
-      newClick.splice(newClick.indexOf(id), 1);
-      setClicked(newClick);
-      setRefresh(!refresh);
-    }
-    console.log(clicked);
+  const [board, setBoard] = useState();
+  const handleClick = item => {
+    setBoard(item);
   };
   const handlePriceFormat = price => {
     return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.');
@@ -48,23 +38,21 @@ const AllProducts = ({navigation, route}) => {
       .then(responseJson => {
         setData(responseJson);
         if (route.params.category !== '') {
-          console.log('Vao ne mn');
-          console.log(route.params.category);
-          console.log(dataShow);
           let newShow = responseJson.filter(product =>
             product.category
               .toLowerCase()
               .includes(route.params.category.toLowerCase()),
           );
           setDataShow(newShow);
+          setBoard(newShow[0]);
         } else {
           setDataShow(
             responseJson.sort((a, b) =>
               a.category > b.category ? -1 : b.category > a.category ? 1 : 0,
             ),
           );
+          setBoard(responseJson[0]);
         }
-
         setLoading(false);
       });
   };
@@ -92,17 +80,10 @@ const AllProducts = ({navigation, route}) => {
       return <View containerStyle={styles.invisible}></View>;
     }
     return (
-      <View
-        style={
-          clicked.includes(item._id)
-            ? styles.card_container
-            : styles.card_container_collapse
-        }>
-        <TouchableOpacity onPress={() => handleClick(item._id)}>
+      <View style={styles.card_container_collapse}>
+        <TouchableOpacity onPress={() => handleClick(item)}>
           <Image
-            style={
-              clicked.includes(item._id) ? styles.img : styles.img_collapse
-            }
+            style={styles.img_collapse}
             source={{uri: item.productThumbnail}}
             PlaceholderContent={
               <View style={styles.loading}>
@@ -110,45 +91,12 @@ const AllProducts = ({navigation, route}) => {
               </View>
             }></Image>
           <Text style={styles.text_detail}>{item.productName}</Text>
-          <Text
-            style={
-              clicked.includes(item._id)
-                ? styles.category
-                : styles.category_collapse
-            }>
-            {item.category}
-          </Text>
-          {clicked.includes(item._id) ? (
-            <Text style={styles.description}>{item.description}</Text>
-          ) : null}
-          <Text
-            style={
-              clicked.includes(item._id)
-                ? styles.text_detail_price
-                : styles.text_detail_price_collapse
-            }>
+          <Text style={styles.category_collapse}>{item.category}</Text>
+
+          <Text style={styles.text_detail_price_collapse}>
             {handlePriceFormat(item.price)}
           </Text>
-          <Text
-            style={
-              clicked.includes(item._id)
-                ? styles.quantity
-                : styles.quantity_collapse
-            }>
-            {item.quantity}
-          </Text>
-          {clicked.includes(item._id) ? (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate(_navigation.ProductDetail, {
-                  id: item._id,
-                  navigation: navigation,
-                })
-              }>
-              <Text style={styles.add_to_cart}> Detail</Text>
-            </TouchableOpacity>
-          ) : null}
+          <Text style={styles.quantity_collapse}>{item.quantity}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -170,6 +118,28 @@ const AllProducts = ({navigation, route}) => {
           renderItem={renderItem}
           horizontal
           extraData={refresh}></FlatList>
+      )}
+      {loading ? null : (
+        <Animatable.View animation="zoomInUp" style={styles.info_board}>
+          <View style={styles.boardDetail}>
+            <Text style={styles.header}>Product name:</Text>
+            <Text style={styles.info}>{board.productName}</Text>
+          </View>
+          <View style={styles.boardDetail}>
+            <Text style={styles.header}>Status:</Text>
+            <Text style={styles.info}>{board.status}</Text>
+          </View>
+          <Text style={styles.header}>Product detail:</Text>
+          <Text style={styles.description}>{board.description}</Text>
+          <TouchableOpacity
+            style={styles.buttonSeeMore}
+            onPress={() =>
+              navigation.navigate(_navigation.ProductDetail, {id: board._id})
+            }>
+            <Text style={styles.order}>Order here</Text>
+            <IconFill name="forward" style={styles.iconOrder} />
+          </TouchableOpacity>
+        </Animatable.View>
       )}
     </View>
   );

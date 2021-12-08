@@ -62,13 +62,12 @@ const LogIn = ({navigation}) => {
           console.log('Wrong password, please type it again');
           alert('Wrong Password. Please try again!');
         } else if (response.status === 200) {
-          console.log(data.data.userInfo.role);
+          console.log(data.data);
           await AsyncStorage.setItem('token', data.data.token);
           await AsyncStorage.setItem(
             'role',
             data.data.userInfo.role === 'Manager' ? 'Manager' : 'User',
           );
-          let role = await AsyncStorage.getItem('role');
           await AsyncStorage.setItem('id', data.data.userInfo.id_user);
           signIn(data.data.token);
         }

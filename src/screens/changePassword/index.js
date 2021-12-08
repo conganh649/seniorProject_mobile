@@ -41,11 +41,10 @@ const ChangePassword = ({navigation}) => {
         }),
       }).then(async response => {
         if (response.status === 400) {
-          console.log('Wrong current password');
           alert('Your current password is wrong. Please try again');
         } else if (response.status === 200) {
           console.log('Change password successfully');
-          navigation.navigate(_navigation.Profile);
+          navigation.goBack();
         }
       });
     } else {

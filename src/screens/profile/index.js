@@ -50,8 +50,12 @@ const Profile = ({navigation}) => {
       });
   };
   useEffect(() => {
-    loadProfile();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadProfile();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.user_info_section}>

@@ -34,38 +34,58 @@ const Cart = ({navigation}) => {
         product: cart[i].id_product,
         quantity: cart[i].quantity,
         price: cart[i].price,
-        image: cart[i].image,
+        productThumbnail: cart[i].image,
+        name: cart[i].name,
       };
       productDetail.push(detail);
     }
     const money = await calculateTotal();
     try {
-      if (cart !== null && productDetail.length !== 0) {
-        await fetch('https://dutsenior.herokuapp.com/api/orders', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json, text/plain, */*',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            user: id,
-            orderDetail: productDetail,
-            totalPrice: money,
-          }),
-        }).then(async response => {
-          let data = await response.json();
-          if (response.status === 200) {
-            await AsyncStorage.removeItem('cart');
-            alert('Order successfully');
-            navigation.navigate(_navigation.Home);
-          } else {
-            alert('Something went wrong. Please try again');
+      await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          if (responseJson) {
+            if (responseJson.fullName) {
+              if (cart !== null && productDetail.length !== 0) {
+                fetch('https://dutsenior.herokuapp.com/api/orders', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                  },
+                  body: JSON.stringify({
+                    user: id,
+                    name: responseJson.fullName,
+                    address: responseJson.address,
+                    orderDetail: productDetail,
+                    totalPrice: money,
+                  }),
+                }).then(async response => {
+                  let data = await response.json();
+                  if (response.status === 200) {
+                    await AsyncStorage.removeItem('cart');
+                    alert('Order successfully');
+                    navigation.navigate(_navigation.Home);
+                  } else {
+                    alert('Something went wrong. Please try again');
+                  }
+                });
+              } else {
+                alert('Your cart is empty!');
+              }
+            } else {
+              alert('Please update your profile first');
+            }
           }
         });
-      } else {
-        alert('Your cart is empty!');
-      }
     } catch (error) {
       // Error checkout data
     }
@@ -132,11 +152,10 @@ const Cart = ({navigation}) => {
             </View>
           </View>
           <TouchableOpacity
-            style={styles.R}
+            style={styles.order_button}
             onPress={() => handleOrderButton()}>
-            <Text style={styles.S}>Order</Text>
+            <Text style={styles.order_text}>Order</Text>
           </TouchableOpacity>
-          <View style={styles.C} />
         </ScrollView>
       </View>
     </View>

@@ -77,26 +77,7 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 20,
   },
-  B: {
-    backgroundColor: '#39D5D5',
-    alignItems: 'center',
-  },
-  C: {
-    height: 10,
-  },
-  D: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  N: {
-    backgroundColor: '#39D5D5',
-    padding: 8,
-    borderRadius: 1000,
-  },
-
-  R: {
+  order_button: {
     backgroundColor: '#39D5D5',
     width: width - 40,
     alignItems: 'center',
@@ -104,7 +85,7 @@ export default StyleSheet.create({
     borderRadius: 5,
     margin: 20,
   },
-  S: {
+  order_text: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'white',

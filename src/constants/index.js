@@ -7,4 +7,6 @@ export const _navigation = {
   ProductDetail: 'ProductDetail',
   LogIn: 'LogIn',
   Register: 'Register',
+  OrderManager: 'OrderManage',
+  OrderDetail: 'OrderDetail',
 };

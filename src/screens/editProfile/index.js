@@ -57,8 +57,7 @@ const EditProfile = ({navigation}) => {
       })
         .then(response => response.json())
         .then(responseJson => {
-          console.log(responseJson);
-          navigation.navigate(_navigation.Profile);
+          navigation.goBack();
         });
     } else {
       alert('Please check your info again');
