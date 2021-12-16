@@ -36,6 +36,37 @@ const App = () => {
       },
       signOut: async () => {
         dispatch({type: 'LOGOUT'});
+        const value = JSON.parse(await AsyncStorage.getItem('cart'));
+        let id = await AsyncStorage.getItem('id');
+        let token = await AsyncStorage.getItem('token');
+        let productDetail = [];
+        if (value) {
+          for (var i = 0; i < value.length; i++) {
+            let detail = {
+              product: value[i].id_product,
+              quantity: value[i].quantity,
+              price: value[i].price,
+              productThumbnail: value[i].image,
+              name: value[i].name,
+            };
+            productDetail.push(detail);
+          }
+        }
+        try {
+          await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              cartDetail: productDetail,
+            }),
+          }).then(response => response.json());
+        } catch (err) {
+          console.log('Loi');
+        }
         await AsyncStorage.clear();
       },
     }),

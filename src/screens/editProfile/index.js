@@ -35,7 +35,6 @@ const EditProfile = ({navigation}) => {
   const [validAddress, setValidAddress] = useState(true);
   const [validEmail, setValidEmail] = useState(true);
   const handleSubmit = async () => {
-    console.log(data);
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
     if (validPhone && validName && validAddress && validEmail) {

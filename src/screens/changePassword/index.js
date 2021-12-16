@@ -22,9 +22,6 @@ const ChangePassword = ({navigation}) => {
   const [validConfirm, setValidConfirm] = useState(true);
 
   const handleChange = async () => {
-    console.log(oldPass);
-    console.log(newPass);
-
     if (validNew && validConfirm && oldPass != null && newPass != null) {
       let id = await AsyncStorage.getItem('id');
       let token = await AsyncStorage.getItem('token');
@@ -43,7 +40,6 @@ const ChangePassword = ({navigation}) => {
         if (response.status === 400) {
           alert('Your current password is wrong. Please try again');
         } else if (response.status === 200) {
-          console.log('Change password successfully');
           navigation.goBack();
         }
       });

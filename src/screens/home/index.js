@@ -58,8 +58,70 @@ const Home = ({navigation}) => {
   useEffect(() => {
     setLoading(true);
     loadProduct();
+    getCart();
   }, []);
 
+  const getCart = async () => {
+    let id = await AsyncStorage.getItem('id');
+    let token = await AsyncStorage.getItem('token');
+    const getCart = await AsyncStorage.getItem('cart');
+    let fetchData = [];
+    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        fetchData = responseJson.cartDetail;
+      });
+
+    if (fetchData.length != 0) {
+      if (getCart) {
+        const cart = JSON.parse(getCart);
+        fetchData.map(async (item, key) => {
+          const index = cart.findIndex(
+            item => item.id_product === item.id_product,
+          );
+          if (index === -1) {
+            const productAdd = [
+              ...cart,
+              {
+                id_product: item.product,
+                price: item.price,
+                quantity: item.quantity,
+                image: item.productThumbnail,
+                name: item.name,
+              },
+            ];
+            await AsyncStorage.setItem('cart', JSON.stringify(productAdd));
+          } else {
+            cart &&
+              (cart[index].quantity = `${
+                Number.parseInt(cart[index].quantity) +
+                Number.parseInt(item.quantity)
+              }`);
+            await AsyncStorage.setItem('cart', JSON.stringify(cart));
+          }
+        });
+      } else {
+        let productCart = [];
+        fetchData.map((item, key) => {
+          productCart.push({
+            id_product: item.product,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.productThumbnail,
+            name: item.name,
+          });
+        });
+        await AsyncStorage.setItem('cart', JSON.stringify(productCart));
+      }
+    }
+  };
   return (
     <ScrollView
       style={styles.container}

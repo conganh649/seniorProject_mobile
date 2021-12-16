@@ -5,7 +5,6 @@ import {_navigation} from '../../constants';
 import styles from './styles';
 const Cart = ({navigation}) => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setData([]);
@@ -13,6 +12,7 @@ const Cart = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
+
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem('cart');
@@ -83,6 +83,7 @@ const Cart = ({navigation}) => {
               }
             } else {
               alert('Please update your profile first');
+              navigation.navigate(_navigation.Profile);
             }
           }
         });

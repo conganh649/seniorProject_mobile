@@ -78,7 +78,6 @@ const OrderManage = ({navigation}) => {
       });
   };
   const handleConfirmButton = async id => {
-    console.log(status);
     let token = await AsyncStorage.getItem('token');
     try {
       await fetch('https://dutsenior.herokuapp.com/api/orders/' + update, {

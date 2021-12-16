@@ -9,4 +9,6 @@ export const _navigation = {
   Register: 'Register',
   OrderManager: 'OrderManage',
   OrderDetail: 'OrderDetail',
+  FamilyManager: 'FamilyManage',
+  FamilyDetail: 'FamilyDetail',
 };

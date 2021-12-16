@@ -56,13 +56,10 @@ const LogIn = ({navigation}) => {
       }).then(async response => {
         let data = await response.json();
         if (response.status === 500) {
-          console.log('Wrong ID Card, please type it again');
           alert('Wrong ID Card. Please try again!');
         } else if (response.status === 401) {
-          console.log('Wrong password, please type it again');
           alert('Wrong Password. Please try again!');
         } else if (response.status === 200) {
-          console.log(data.data);
           await AsyncStorage.setItem('token', data.data.token);
           await AsyncStorage.setItem(
             'role',

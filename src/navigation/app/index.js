@@ -9,12 +9,14 @@ import AllProducts from '../../screens/allProducts';
 import ProductDetail from '../../screens/productDetail';
 import Cart from '../../screens/cart';
 import OrderManage from '../../screens/orderManage';
+import FamilyManage from '../../screens/familyManage';
+import Utils from '../../screens/management';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import OrderDetail from '../../screens/orderDetail';
-
+import FamilyDetail from '../../screens/familyDetail';
 const Drawer = createDrawerNavigator();
 const drawerStack = {
   Home: {
@@ -64,7 +66,6 @@ export const DrawerNavigation = () => {
 
   useEffect(() => {
     getRole();
-    console.log(role);
   }, []);
   return (
     <Drawer.Navigator>
@@ -79,13 +80,43 @@ export const DrawerNavigation = () => {
       ))}
       {role === 'Manager' ? (
         <Drawer.Screen
-          name={'Order Manager'}
+          name={'Order Management'}
           component={OrderManage}
           options={{
-            title: 'Order manager',
+            title: 'Order Management',
             drawerIcon: ({focused}) => (
               <IconFill
                 name="folder"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}></Drawer.Screen>
+      ) : null}
+
+      {role === 'Manager' ? (
+        <Drawer.Screen
+          name={'Family Management'}
+          component={FamilyManage}
+          options={{
+            title: 'Family Management',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="insurance"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}></Drawer.Screen>
+      ) : null}
+
+      {role === 'Manager' ? (
+        <Drawer.Screen
+          name={'Utils'}
+          component={Utils}
+          options={{
+            title: 'Utils',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="tool"
                 size={20}
                 color={focused ? '#39D5D5' : 'black'}></IconFill>
             ),
@@ -120,6 +151,7 @@ export const RootStack = () => {
         name="ProductDetail"
         component={ProductDetail}></Stack.Screen>
       <Stack.Screen name="OrderDetail" component={OrderDetail}></Stack.Screen>
+      <Stack.Screen name="FamilyDetail" component={FamilyDetail}></Stack.Screen>
     </Stack.Navigator>
   );
 };
