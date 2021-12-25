@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
 const Cart = ({navigation}) => {
   const [data, setData] = useState([]);
@@ -41,7 +41,7 @@ const Cart = ({navigation}) => {
     }
     const money = await calculateTotal();
     try {
-      await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+      await fetch(`${apiUrl}api/users?id=` + id, {
         method: 'GET',
         headers: {
           Accept: 'application/json, text/plain, */*',
@@ -54,7 +54,7 @@ const Cart = ({navigation}) => {
           if (responseJson) {
             if (responseJson.fullName) {
               if (cart !== null && productDetail.length !== 0) {
-                fetch('https://dutsenior.herokuapp.com/api/orders', {
+                fetch(`${apiUrl}api/orders`, {
                   method: 'POST',
                   headers: {
                     Accept: 'application/json, text/plain, */*',

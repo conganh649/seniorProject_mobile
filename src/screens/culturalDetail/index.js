@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {Table, TableWrapper, Row, Cell} from 'react-native-table-component';
 import {IconFill} from '@ant-design/icons-react-native';
 import styles from './styles';
@@ -14,7 +14,7 @@ const CulturalFamily = props => {
     setPage(1);
     setLoading(true);
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/family/cultural', {
+    await fetch(`${apiUrl}api/family/cultural`, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',

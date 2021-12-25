@@ -1,20 +1,33 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {Table, TableWrapper, Row, Cell} from 'react-native-table-component';
+import Modal from 'react-native-modal';
 import {IconFill} from '@ant-design/icons-react-native';
 import styles from './styles';
-const CulturalFamily = navigation => {
+const Military = navigation => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [tableHead, setTableHead] = useState(['ID Card', 'Name', 'Birthday']);
+  const [modal, setModal] = useState(false);
+  const [show, setShow] = useState();
+  let year = new Date().getFullYear().toString();
+  const toggleModal = () => {
+    setModal(!modal);
+  };
   const loadData = async () => {
     setPage(1);
     setLoading(true);
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users/military', {
+    await fetch(`${apiUrl}api/users/military?year=${year}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -40,6 +53,27 @@ const CulturalFamily = navigation => {
     setPage(newPage);
   };
 
+  const handleSend = async () => {
+    let token = await AsyncStorage.getItem('token');
+    let notification = {
+      title: 'Military Service Medical Test Call',
+      body: 'You are qualified for Military Service. Please join the Medical Test when getting the official registration form!',
+    };
+    await fetch(`${apiUrl}api/notification/sendToDevice`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        notification: notification,
+        listUser: [show._id],
+      }),
+    });
+    toggleModal();
+  };
+
   const handleDateFormat = date => {
     let currentDate = new Date(date);
     let dob =
@@ -51,6 +85,27 @@ const CulturalFamily = navigation => {
     return dob;
   };
 
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.card_container_cultural}>
+        <View style={styles.info_view_list}>
+          <Text style={styles.title}>Year:</Text>
+          <Text style={styles.detail}>{item.year}</Text>
+        </View>
+        <View style={styles.info_view}>
+          <Text style={styles.title}>Certification:</Text>
+          <Text
+            style={
+              item.certification === false
+                ? styles.detail_red
+                : styles.detail_green
+            }>
+            {item.certification === false ? 'No' : 'Yes'}
+          </Text>
+        </View>
+      </View>
+    );
+  };
   useEffect(() => {
     setLoading(true);
     setData([]);
@@ -70,7 +125,12 @@ const CulturalFamily = navigation => {
             textStyle={styles.text_header}
           />
           {data.slice((page - 1) * 8, page * 8).map((rowData, index) => (
-            <View key={index}>
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setShow(rowData);
+                toggleModal();
+              }}>
               <TableWrapper style={styles.row}>
                 <Cell data={rowData.idCard} textStyle={styles.text}></Cell>
                 <Cell data={rowData.fullName} textStyle={styles.text}></Cell>
@@ -78,7 +138,7 @@ const CulturalFamily = navigation => {
                   data={handleDateFormat(rowData.dateofbirth)}
                   textStyle={styles.text}></Cell>
               </TableWrapper>
-            </View>
+            </TouchableOpacity>
           ))}
         </Table>
       )}
@@ -98,8 +158,66 @@ const CulturalFamily = navigation => {
           <IconFill name="caret-right" style={styles.arrow}></IconFill>
         </TouchableOpacity>
       </View>
+      {modal ? (
+        <Modal isVisible={modal} backdropOpacity={0.2}>
+          <View style={styles.modal}>
+            <View style={styles.info_view}>
+              <Text style={styles.title}>ID Card:</Text>
+              <Text style={styles.detail}>{show.idCard}</Text>
+            </View>
+
+            <View style={styles.info_view}>
+              <Text style={styles.title}>Full name:</Text>
+              <Text style={styles.detail}>{show.fullName}</Text>
+            </View>
+
+            <View style={styles.info_view}>
+              <Text style={styles.title}>Address:</Text>
+              <Text style={styles.detail}>{show.address}</Text>
+            </View>
+
+            <View style={styles.info_view}>
+              <Text style={styles.title}>Date of birth:</Text>
+              <Text style={styles.detail}>
+                {handleDateFormat(show.dateofbirth)}
+              </Text>
+            </View>
+
+            <View style={styles.info_view}>
+              <Text style={styles.title}>Army join:</Text>
+              <Text style={styles.detail}>
+                {show.army === true ? 'Yes' : 'No'}
+              </Text>
+            </View>
+
+            <View style={styles.info_view}>
+              <Text style={styles.title}>Delay call certification:</Text>
+            </View>
+
+            <FlatList
+              data={show.delayCallCertification.sort((a, b) =>
+                a.year > b.year ? -1 : b.year > a.year ? 1 : 0,
+              )}
+              renderItem={renderItem}
+              horizontal></FlatList>
+            <View style={styles.modal_button_container}>
+              <TouchableOpacity
+                onPress={toggleModal}
+                style={styles.modal_button_cancel}>
+                <Text style={styles.button_text}>Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => handleSend()}
+                style={styles.modal_button}>
+                <Text style={styles.button_text}>Send call</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      ) : null}
     </View>
   );
 };
 
-export default CulturalFamily;
+export default Military;

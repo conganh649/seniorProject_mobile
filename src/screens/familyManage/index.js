@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Button, Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {Table, TableWrapper, Row, Cell} from 'react-native-table-component';
 import {IconOutline, IconFill} from '@ant-design/icons-react-native';
 import {Picker} from '@react-native-picker/picker';
@@ -23,7 +23,7 @@ const FamilyManage = ({navigation}) => {
   const loadData = async () => {
     setPage(1);
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/family', {
+    await fetch(`${apiUrl}api/family`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

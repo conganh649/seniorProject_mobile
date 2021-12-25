@@ -11,7 +11,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import {IconOutline, IconFill} from '@ant-design/icons-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {AuthContext} from '../../stores';
 import styles from './styles';
 const LogIn = ({navigation}) => {
@@ -43,7 +43,7 @@ const LogIn = ({navigation}) => {
   };
   const handleLoginPress = async () => {
     if (validId && validPass && id != null && password != null) {
-      await fetch('https://dutsenior.herokuapp.com/api/signin', {
+      await fetch(`${apiUrl}api/signin`, {
         method: 'POST',
         headers: {
           Accept: 'application/json, text/plain, */*',

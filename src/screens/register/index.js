@@ -10,7 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import {IconOutline, IconFill} from '@ant-design/icons-react-native';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
 const Register = ({navigation}) => {
   const [id, setId] = useState();
@@ -70,7 +70,7 @@ const Register = ({navigation}) => {
       validEmail &&
       email != null
     ) {
-      await fetch('https://dutsenior.herokuapp.com/api/signup', {
+      await fetch(`${apiUrl}api/signup`, {
         method: 'POST',
         headers: {
           Accept: 'application/json, text/plain, */*',

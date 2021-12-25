@@ -12,7 +12,7 @@ const NotificationCard = props => {
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{props.data.title}</Text>
-      <Text style={styles.description}>{props.data.body?.slice(0, 65)}</Text>
+      <Text style={styles.description}>{props.data.body?.slice(0, 75)}</Text>
       <Text style={styles.quantity}>{timeAgo.format(date)}</Text>
     </View>
   );

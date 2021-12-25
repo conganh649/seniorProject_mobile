@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Button, Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {Table, TableWrapper, Row, Cell} from 'react-native-table-component';
 import {IconOutline, IconFill} from '@ant-design/icons-react-native';
 import {Picker} from '@react-native-picker/picker';
@@ -43,7 +43,7 @@ const OrderManage = ({navigation}) => {
   const loadData = async () => {
     setPage(1);
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/orders', {
+    await fetch(`${apiUrl}api/orders`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -80,7 +80,7 @@ const OrderManage = ({navigation}) => {
   const handleConfirmButton = async id => {
     let token = await AsyncStorage.getItem('token');
     try {
-      await fetch('https://dutsenior.herokuapp.com/api/orders/' + update, {
+      await fetch(`${apiUrl}api/orders/` + update, {
         method: 'PUT',
         headers: {
           Accept: 'application/json, text/plain, */*',

@@ -12,7 +12,7 @@ import * as Animatable from 'react-native-animatable';
 import Header from '../../components/header';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
 const EditProfile = ({navigation}) => {
   const [gender, setGender] = useState();
@@ -38,7 +38,7 @@ const EditProfile = ({navigation}) => {
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
     if (validPhone && validName && validAddress && validEmail) {
-      await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+      await fetch(`${apiUrl}api/users/` + id, {
         method: 'PUT',
         headers: {
           Accept: 'application/json, text/plain, */*',
@@ -151,7 +151,7 @@ const EditProfile = ({navigation}) => {
   const loadProfile = async () => {
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+    await fetch(`${apiUrl}api/users?id=` + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

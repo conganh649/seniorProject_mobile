@@ -114,7 +114,7 @@ export default StyleSheet.create({
   },
   modal: {
     backgroundColor: '#ffffff',
-    height: '35%',
+    height: '65%',
     borderRadius: 5,
   },
   modal_text: {
@@ -130,6 +130,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 'auto',
     marginRight: 'auto',
+    paddingBottom: 10,
   },
   modal_button_cancel: {
     backgroundColor: '#FF2E2E',
@@ -175,5 +176,54 @@ export default StyleSheet.create({
     marginLeft: 20,
     marginRight: 50,
     marginTop: 5,
+  },
+  info_view: {
+    flexDirection: 'row',
+    marginTop: 12,
+    marginLeft: 10,
+  },
+  title: {
+    fontSize: 18,
+    color: '#39D5D5',
+    fontFamily: 'poppins',
+    fontWeight: '700',
+  },
+  detail: {
+    fontSize: 18,
+    fontFamily: 'poppins',
+    marginLeft: 5,
+  },
+  card_container_cultural: {
+    width: 300,
+    height: 150,
+    borderRadius: 5,
+    backgroundColor: '#ffffff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.9,
+    shadowRadius: 2,
+    elevation: 8,
+    flex: 1,
+    marginLeft: 20,
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  info_view_list: {
+    flexDirection: 'row',
+    marginTop: 12,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  detail_red: {
+    fontSize: 18,
+    fontFamily: 'poppins',
+    marginLeft: 5,
+    color: '#FF2E2E',
+  },
+  detail_green: {
+    fontSize: 18,
+    fontFamily: 'poppins',
+    marginLeft: 5,
+    color: '#00A300',
   },
 });

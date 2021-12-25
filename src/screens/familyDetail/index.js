@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import CulturalForm from '../../components/familyManage/culturalFamilyForm';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {IconFill} from '@ant-design/icons-react-native';
 import Modal from 'react-native-modal';
 import styles from './styles';
@@ -54,20 +54,17 @@ const FamilyDetail = props => {
       console.log('====');
       console.log(data.culturalFamilyRating);
       try {
-        await fetch(
-          'https://dutsenior.herokuapp.com/api/family/' + props.route.params.id,
-          {
-            method: 'PUT',
-            headers: {
-              Accept: 'application/json, text/plain, */*',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              culturalFamilyRating: newRating,
-            }),
+        await fetch(`${apiUrl}api/family/` + props.route.params.id, {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
-        )
+          body: JSON.stringify({
+            culturalFamilyRating: newRating,
+          }),
+        })
           .then(response => response.json())
           .then(responseJson => {
             if (responseJson) {
@@ -83,17 +80,14 @@ const FamilyDetail = props => {
   const loadData = async () => {
     setLoading(true);
     let token = await AsyncStorage.getItem('token');
-    await fetch(
-      'https://dutsenior.herokuapp.com/api/family?id=' + props.route.params.id,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+    await fetch(`${apiUrl}api/family?id=` + props.route.params.id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson) {

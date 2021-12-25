@@ -10,7 +10,7 @@ import {
 import {Card, Input, Text, Image} from 'react-native-elements';
 import {IconOutline} from '@ant-design/icons-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
 const ProductDetail = props => {
   const [data, setData] = useState();
@@ -22,17 +22,14 @@ const ProductDetail = props => {
   };
   const loadProduct = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch(
-      'https://dutsenior.herokuapp.com/api/products/' + props.route.params.id,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+    await fetch(`${apiUrl}api/products/` + props.route.params.id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
       .then(response => response.json())
       .then(responseJson => {
         setData(responseJson);

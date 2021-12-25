@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {AuthStack, RootStack} from '../../navigation/app';
 import AsyncStorage from '@react-native-community/async-storage';
+import {_navigation, apiUrl} from '../../constants';
 import {AuthContext} from '../../stores';
 import firebase from 'react-native-firebase';
 import {Platform} from 'react-native';
@@ -106,7 +107,7 @@ const App = () => {
           }
         }
         try {
-          await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+          await fetch(`${apiUrl}api/users/` + id, {
             method: 'PUT',
             headers: {
               Accept: 'application/json, text/plain, */*',

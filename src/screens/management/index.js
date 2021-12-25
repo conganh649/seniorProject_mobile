@@ -28,7 +28,9 @@ const Utils = ({navigation}) => {
           style={styles.card}
           onPress={() => navigation.navigate(_navigation.Military)}>
           <IconOutline name="user" style={styles.icon}></IconOutline>
-          <Text style={styles.detail}>Military Service</Text>
+          <Text style={styles.detail}>
+            {new Date().getFullYear().toString()} Military Service
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card} onPress={() => toggleCultural()}>
           <IconOutline name="home" style={styles.icon}></IconOutline>

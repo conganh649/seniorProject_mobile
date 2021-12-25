@@ -11,7 +11,7 @@ import {
 import {IconOutline, IconFill} from '@ant-design/icons-react-native';
 import * as Animatable from 'react-native-animatable';
 import Header from '../../components/header';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 const ChangePassword = ({navigation}) => {
@@ -25,7 +25,7 @@ const ChangePassword = ({navigation}) => {
     if (validNew && validConfirm && oldPass != null && newPass != null) {
       let id = await AsyncStorage.getItem('id');
       let token = await AsyncStorage.getItem('token');
-      await fetch('https://dutsenior.herokuapp.com/api/users/pass/' + id, {
+      await fetch(`${apiUrl}api/users/pass/` + id, {
         method: 'PUT',
         headers: {
           Accept: 'application/json, text/plain, */*',

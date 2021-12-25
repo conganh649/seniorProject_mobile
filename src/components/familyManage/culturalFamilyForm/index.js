@@ -30,7 +30,7 @@ const CulturalForm = props => {
     <ScrollView style={styles.container}>
       <View style={styles.info_view}>
         <Text style={styles.title_header}>
-          Your are rating cultural family for {new Date().getFullYear()}
+          You are rating cultural family for {new Date().getFullYear()}
         </Text>
       </View>
       <View style={styles.info_view}>

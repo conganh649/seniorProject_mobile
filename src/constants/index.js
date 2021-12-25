@@ -14,3 +14,6 @@ export const _navigation = {
   CulturalFamily: 'CulturalFamily',
   Military: 'Military',
 };
+
+export const apiUrl =
+  'http://ec2-13-229-119-23.ap-southeast-1.compute.amazonaws.com/';

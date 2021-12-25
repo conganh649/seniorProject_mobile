@@ -4,7 +4,7 @@ import {Avatar, Title, Caption, Text} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconOutline} from '@ant-design/icons-react-native';
 import styles from './styles';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import {AuthContext} from '../../stores';
 const Profile = ({navigation}) => {
   const {signOut} = useContext(AuthContext);
@@ -19,7 +19,7 @@ const Profile = ({navigation}) => {
   const loadProfile = async () => {
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+    await fetch(`${apiUrl}api/users?id=` + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -53,7 +53,7 @@ const Profile = ({navigation}) => {
   const setDevice = async () => {
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+    await fetch(`${apiUrl}api/users/` + id, {
       method: 'PUT',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -169,4 +169,3 @@ const Profile = ({navigation}) => {
 };
 
 export default Profile;
-

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import ProductCard from '../../components/home/ProductCard';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 import categories from '../../constants/categories.json';
 import styles from './styles';
@@ -36,7 +36,7 @@ const Home = ({navigation}) => {
   };
   const loadProduct = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/products', {
+    await fetch(`${apiUrl}api/products`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -55,7 +55,7 @@ const Home = ({navigation}) => {
     const firebaseToken = await firebase.messaging().getToken();
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+    await fetch(`${apiUrl}api/users/` + id, {
       method: 'PUT',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -85,7 +85,7 @@ const Home = ({navigation}) => {
     let token = await AsyncStorage.getItem('token');
     const getCart = await AsyncStorage.getItem('cart');
     let fetchData = [];
-    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+    await fetch(`${apiUrl}api/users?id=` + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

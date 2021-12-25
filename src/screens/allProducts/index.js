@@ -9,7 +9,7 @@ import {Input, Text, Image} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import * as Animatable from 'react-native-animatable';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
 const AllProducts = ({navigation, route}) => {
   const [data, setData] = useState([]);
@@ -25,7 +25,7 @@ const AllProducts = ({navigation, route}) => {
   };
   const loadProduct = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/products', {
+    await fetch(`${apiUrl}api/products`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

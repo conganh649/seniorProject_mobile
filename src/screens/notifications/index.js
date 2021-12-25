@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import NotificationCard from '../../components/notification/NotificationCard';
-import {_navigation} from '../../constants';
+import {_navigation, apiUrl} from '../../constants';
 import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
@@ -70,7 +70,7 @@ const Notification = ({navigation}) => {
   const loadNotifications = async () => {
     let id = await AsyncStorage.getItem('id');
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users?id=' + id, {
+    await fetch(`${apiUrl}api/users?id=` + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -94,7 +94,7 @@ const Notification = ({navigation}) => {
 
   const loadContacts = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/users', {
+    await fetch(`${apiUrl}api/users`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
@@ -137,22 +137,20 @@ const Notification = ({navigation}) => {
       alert('Please type something before sending');
     } else {
       if (all === true) {
-        await fetch(
-          'https://dutsenior.herokuapp.com/api/notification/sendToAll',
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json, text/plain, */*',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              title: title,
-              body: content,
-            }),
+        await fetch(`${apiUrl}api/notification/sendToAll`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
-        );
+          body: JSON.stringify({
+            title: title,
+            body: content,
+          }),
+        });
         toggleModal();
+        navigation.navigate(_navigation.Home);
       } else {
         let notification = {
           title: title,
@@ -161,22 +159,20 @@ const Notification = ({navigation}) => {
         if (to.length === 0) {
           alert('Please choose at least 1 receiver');
         } else {
-          await fetch(
-            'https://dutsenior.herokuapp.com/api/notification/sendToDevice',
-            {
-              method: 'POST',
-              headers: {
-                Accept: 'application/json, text/plain, */*',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                notification: notification,
-                listUser: to,
-              }),
+          await fetch(`${apiUrl}api/notification/sendToDevice`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json, text/plain, */*',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
-          );
+            body: JSON.stringify({
+              notification: notification,
+              listUser: to,
+            }),
+          });
           toggleModal();
+          navigation.navigate(_navigation.Home);
         }
       }
     }
