@@ -131,11 +131,9 @@ const ProductDetail = props => {
             <Text style={styles.price}>{handlePriceFormat(data.price)}</Text>
             <Text
               style={
-                data.status === 'In stock'
-                  ? styles.status_in
-                  : styles.status_out
+                data.quantity === 0 ? styles.status_out : styles.status_in
               }>
-              {data.status}
+              {data.quantity === 0 ? 'Out of stock' : 'In stock'}
             </Text>
             <Text style={styles.quantity}>{data.quantity} left</Text>
             <Text style={styles.description}>{data.description}</Text>

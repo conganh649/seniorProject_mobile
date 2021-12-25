@@ -109,23 +109,23 @@ const FamilyDetail = props => {
   const renderItem = ({item}) => {
     return (
       <View style={styles.card_container}>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Name:</Text>
           <Text style={styles.detail}>{item.memberName}</Text>
         </View>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>ID Card:</Text>
           <Text style={styles.detail}>{item.memberIdCard}</Text>
         </View>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Origin:</Text>
           <Text style={styles.detail}>{item.origin}</Text>
         </View>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Ethnic:</Text>
           <Text style={styles.detail}>{item.ethnic}</Text>
         </View>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Religion:</Text>
           <Text style={styles.detail}>{item.religion}</Text>
         </View>
@@ -140,11 +140,11 @@ const FamilyDetail = props => {
   const renderCultural = ({item}) => {
     return (
       <View style={styles.card_container_cultural}>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Year:</Text>
           <Text style={styles.detail}>{item.year}</Text>
         </View>
-        <View style={styles.info_view}>
+        <View style={styles.info_view_list}>
           <Text style={styles.title}>Rating:</Text>
           <Text style={styles.detail}>{item.rating}</Text>
         </View>

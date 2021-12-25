@@ -10,7 +10,10 @@ import ProductDetail from '../../screens/productDetail';
 import Cart from '../../screens/cart';
 import OrderManage from '../../screens/orderManage';
 import FamilyManage from '../../screens/familyManage';
+import CulturalFamily from '../../screens/culturalDetail';
+import Military from '../../screens/military';
 import Utils from '../../screens/management';
+import Notification from '../../screens/notifications';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -110,10 +113,10 @@ export const DrawerNavigation = () => {
 
       {role === 'Manager' ? (
         <Drawer.Screen
-          name={'Utils'}
+          name={'General Management'}
           component={Utils}
           options={{
-            title: 'Utils',
+            title: 'General Management',
             drawerIcon: ({focused}) => (
               <IconFill
                 name="tool"
@@ -122,6 +125,18 @@ export const DrawerNavigation = () => {
             ),
           }}></Drawer.Screen>
       ) : null}
+      <Drawer.Screen
+        name={'Notifications'}
+        component={Notification}
+        options={{
+          title: 'Notifications',
+          drawerIcon: ({focused}) => (
+            <IconFill
+              name="notification"
+              size={20}
+              color={focused ? '#39D5D5' : 'black'}></IconFill>
+          ),
+        }}></Drawer.Screen>
     </Drawer.Navigator>
   );
 };
@@ -152,6 +167,10 @@ export const RootStack = () => {
         component={ProductDetail}></Stack.Screen>
       <Stack.Screen name="OrderDetail" component={OrderDetail}></Stack.Screen>
       <Stack.Screen name="FamilyDetail" component={FamilyDetail}></Stack.Screen>
+      <Stack.Screen
+        name="CulturalFamily"
+        component={CulturalFamily}></Stack.Screen>
+      <Stack.Screen name="Military" component={Military}></Stack.Screen>
     </Stack.Navigator>
   );
 };

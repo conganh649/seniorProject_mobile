@@ -21,5 +21,33 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+      <!-- Foreground Notification -->
+      <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
+        <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+        </intent-filter>
+      </service>
+      <service android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
+        <intent-filter>
+          <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+        </intent-filter>
+      </service>
+      <receiver android:name="io.invertase.firebase.notifications.RNFirebaseNotificationReceiver"></receiver>
+      <receiver 
+        android:enabled="true" 
+        android:exported="true" 
+        android:name="io.invertase.firebase.notifications.RNFirebaseNotificationsRebootReceiver">
+
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+          <action android:name="android.intent.action.QUICKBOOT_POWERON"></action>
+          <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"></action>
+          <category android:name="android.intent.category.DEFAULT"></category>
+
+        </intent-filter>
+      </receiver>
+
+      <!--*** END OF NOTIFICATION -->
     </application>
 </manifest>

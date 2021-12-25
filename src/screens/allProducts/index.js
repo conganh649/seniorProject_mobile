@@ -15,7 +15,6 @@ const AllProducts = ({navigation, route}) => {
   const [data, setData] = useState([]);
   const [dataShow, setDataShow] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showBoard, setShowBoard] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const [board, setBoard] = useState();
   const handleClick = item => {
@@ -70,8 +69,8 @@ const AllProducts = ({navigation, route}) => {
     let product = data;
     let newShow = product.filter(
       product =>
-        product.productName.toLowerCase().includes(val) ||
-        product.category.toLowerCase().includes(val),
+        product.productName.toLowerCase().includes(val.toLowerCase()) ||
+        product.category.toLowerCase().includes(val.toLowerCase()),
     );
     setDataShow(newShow);
   };

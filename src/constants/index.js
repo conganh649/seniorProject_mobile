@@ -11,4 +11,6 @@ export const _navigation = {
   OrderDetail: 'OrderDetail',
   FamilyManager: 'FamilyManage',
   FamilyDetail: 'FamilyDetail',
+  CulturalFamily: 'CulturalFamily',
+  Military: 'Military',
 };

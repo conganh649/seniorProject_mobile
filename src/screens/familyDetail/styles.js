@@ -7,8 +7,15 @@ export default StyleSheet.create({
   },
   info_view: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 12,
     marginLeft: 10,
+  },
+  info_view_list: {
+    flexDirection: 'row',
+    marginTop: 12,
+    marginLeft: 10,
+    borderBottomWidth: 0.2,
+    marginRight: 10,
   },
   info_view_member: {
     flexDirection: 'row',

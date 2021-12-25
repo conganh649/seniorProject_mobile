@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "880835978057",
+    "project_id": "seniornoti",
+    "storage_bucket": "seniornoti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880835978057:android:b41bb1f0d2b9d8b8dc7098",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880835978057-i59rki1ackd46be59cd9jbj4ftqld97s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_2It4XJMGxV3-St8vj83H47Mp5mxY6uE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880835978057-i59rki1ackd46be59cd9jbj4ftqld97s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

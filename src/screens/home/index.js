@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
+import firebase from 'react-native-firebase';
 import ProductCard from '../../components/home/ProductCard';
 import {_navigation} from '../../constants';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -50,6 +51,23 @@ const Home = ({navigation}) => {
       });
   };
 
+  const setDevice = async () => {
+    const firebaseToken = await firebase.messaging().getToken();
+    let id = await AsyncStorage.getItem('id');
+    let token = await AsyncStorage.getItem('token');
+    await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        fcm_token: firebaseToken,
+      }),
+    });
+  };
+
   const onRefresh = async () => {
     setLoading(true);
     await loadProduct();
@@ -59,6 +77,7 @@ const Home = ({navigation}) => {
     setLoading(true);
     loadProduct();
     getCart();
+    setDevice();
   }, []);
 
   const getCart = async () => {

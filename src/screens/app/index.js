@@ -4,8 +4,61 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AuthStack, RootStack} from '../../navigation/app';
 import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../../stores';
-
+import firebase from 'react-native-firebase';
+import {Platform} from 'react-native';
 const App = () => {
+  useEffect(() => {
+    firebaseToken();
+    createChannel();
+    notificationListener();
+  }, []);
+
+  // Get token
+  const firebaseToken = async () => {
+    const firebaseToken = await firebase.messaging().getToken();
+    if (firebaseToken) {
+      firebase.messaging().subscribeToTopic('all');
+    }
+    console.log(firebaseToken);
+  };
+
+  // Create channel
+  const createChannel = () => {
+    const channel = new firebase.notifications.Android.Channel(
+      'channelId',
+      'channelName',
+      firebase.notifications.Android.Importance.Max,
+    ).setDescription('Description');
+
+    firebase.notifications().android.createChannel(channel);
+  };
+
+  // Foreground Notification
+  const notificationListener = () => {
+    firebase.notifications().onNotification(notification => {
+      if (Platform.OS === 'android') {
+        const localNotification = new firebase.notifications.Notification({
+          sound: 'default',
+          show_in_foreground: true,
+        })
+          .setNotificationId(notification.notificationId)
+          .setTitle(notification.title)
+          .setSubtitle(notification.subtitle)
+          .setBody(notification.body)
+          .setData(notification.data)
+          .android.setChannelId('channelId')
+          .android.setPriority(firebase.notifications.Android.Priority.High);
+
+        firebase
+          .notifications()
+          .displayNotification(localNotification)
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
+  };
+
   const initialLoginState = {
     token: '',
   };

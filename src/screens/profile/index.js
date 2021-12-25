@@ -49,6 +49,22 @@ const Profile = ({navigation}) => {
         }
       });
   };
+
+  const setDevice = async () => {
+    let id = await AsyncStorage.getItem('id');
+    let token = await AsyncStorage.getItem('token');
+    await fetch('https://dutsenior.herokuapp.com/api/users/' + id, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        fcm_token: '',
+      }),
+    });
+  };
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       loadProfile();
@@ -134,7 +150,11 @@ const Profile = ({navigation}) => {
             <Text style={styles.menu_item_text}>Support</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => signOut()}>
+        <TouchableOpacity
+          onPress={() => {
+            setDevice();
+            signOut();
+          }}>
           <View style={styles.menu_item}>
             <IconOutline
               style={styles.menu_icon}
@@ -149,3 +169,4 @@ const Profile = ({navigation}) => {
 };
 
 export default Profile;
+

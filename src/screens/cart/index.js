@@ -71,6 +71,7 @@ const Cart = ({navigation}) => {
                 }).then(async response => {
                   let data = await response.json();
                   if (response.status === 200) {
+                    console.log(data);
                     await AsyncStorage.removeItem('cart');
                     alert('Order successfully');
                     navigation.navigate(_navigation.Home);
