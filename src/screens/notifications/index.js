@@ -10,6 +10,7 @@ import {
 import NotificationCard from '../../components/notification/NotificationCard';
 import {_navigation, apiUrl} from '../../constants';
 import CheckBox from '@react-native-community/checkbox';
+import {IconOutline, IconFill} from '@ant-design/icons-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
 import styles from './styles';
@@ -186,95 +187,92 @@ const Notification = ({navigation}) => {
     return unsubscribe;
   }, [navigation]);
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.header}>Notifications</Text>
-        {role === 'Manager' ? (
-          <TouchableOpacity style={styles.button} onPress={() => toggleModal()}>
-            <Text style={styles.button_text_send}>Send notification</Text>
-          </TouchableOpacity>
-        ) : null}
-      </View>
-      {data.map((noti, index) => (
-        <NotificationCard key={index} data={noti} />
-      ))}
-      <Modal isVisible={modal} backdropOpacity={0.2}>
-        <ScrollView style={styles.modal}>
-          <Text style={styles.modal_text}>Send new notification</Text>
-          <View style={styles.input_component}>
-            <Text style={styles.label}>Title:</Text>
-            <TextInput
-              style={styles.text_input}
-              placeholder="Type your title"
-              onChangeText={val => setTitle(val)}></TextInput>
-          </View>
-          <View style={styles.input_component}>
-            <Text style={styles.label}>Content:</Text>
-            <TextInput
-              style={styles.text_input_box}
-              placeholder="Type your content"
-              onChangeText={val => setContent(val)}
-              multiline={true}></TextInput>
-          </View>
-          <View style={styles.input_component}>
-            <Text style={styles.label}>To:</Text>
-            <View style={styles.input_component_to}>
-              <CheckBox
-                style={styles.check}
-                disabled={false}
-                value={all}
-                onValueChange={newValue => {
-                  if (newValue === true) {
-                    setAll(newValue);
-                    setSpecific(false);
-                  } else {
-                    setAll(newValue);
-                    setSpecific(true);
-                  }
-                }}
-              />
-              <Text style={styles.check_title}>All</Text>
-
-              <CheckBox
-                style={styles.check}
-                disabled={false}
-                value={specific}
-                onValueChange={newValue => {
-                  if (newValue === true) {
-                    setSpecific(newValue);
-                    setAll(false);
-                  } else {
-                    setSpecific(newValue);
-                    setAll(true);
-                  }
-                }}
-              />
-              <Text style={styles.check_title}>Specific</Text>
+    <View style={{flex: 1}}>
+      <ScrollView style={styles.container}>
+        <View style={styles.top}>
+          <Text style={styles.header}>Notifications</Text>
+        </View>
+        {data.map((noti, index) => (
+          <NotificationCard key={index} data={noti} />
+        ))}
+        <Modal isVisible={modal} backdropOpacity={0.2}>
+          <ScrollView style={styles.modal}>
+            <Text style={styles.modal_text}>Send Notification</Text>
+            <View style={styles.input_component}>
+              <Text style={styles.label}>Title:</Text>
+              <TextInput
+                style={styles.text_input}
+                placeholder="Type your title"
+                onChangeText={val => setTitle(val)}></TextInput>
             </View>
-            {all ? null : (
-              <View>
-                <ScrollView
-                  style={styles.text_input_box_contacts}
-                  horizontal
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{paddingVertical: 20}}>
-                  <FlatList
-                    style={styles.flat}
-                    scrollEnabled={false}
-                    contentContainerStyle={{
-                      alignSelf: 'flex-start',
-                    }}
-                    numColumns={Math.ceil(contacts.length / 3)}
+            <View style={styles.input_component}>
+              <Text style={styles.label}>Content:</Text>
+              <TextInput
+                style={styles.text_input_box}
+                placeholder="Type your content"
+                onChangeText={val => setContent(val)}
+                multiline={true}></TextInput>
+            </View>
+            <View style={styles.input_component}>
+              <Text style={styles.label}>To:</Text>
+              <View style={styles.input_component_to}>
+                <CheckBox
+                  style={styles.check}
+                  disabled={false}
+                  value={all}
+                  onValueChange={newValue => {
+                    if (newValue === true) {
+                      setAll(newValue);
+                      setSpecific(false);
+                    } else {
+                      setAll(newValue);
+                      setSpecific(true);
+                    }
+                  }}
+                />
+                <Text style={styles.check_title}>All</Text>
+
+                <CheckBox
+                  style={styles.check}
+                  disabled={false}
+                  value={specific}
+                  onValueChange={newValue => {
+                    if (newValue === true) {
+                      setSpecific(newValue);
+                      setAll(false);
+                    } else {
+                      setSpecific(newValue);
+                      setAll(true);
+                    }
+                  }}
+                />
+                <Text style={styles.check_title}>Specific</Text>
+              </View>
+              {all ? null : (
+                <View>
+                  <ScrollView
+                    style={styles.text_input_box_contacts}
+                    horizontal
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
-                    data={show}
-                    renderItem={renderContact}
-                  />
-                </ScrollView>
-              </View>
-            )}
-          </View>
+                    contentContainerStyle={{paddingVertical: 20}}>
+                    <FlatList
+                      style={styles.flat}
+                      scrollEnabled={false}
+                      contentContainerStyle={{
+                        alignSelf: 'flex-start',
+                      }}
+                      numColumns={Math.ceil(contacts.length / 3)}
+                      showsVerticalScrollIndicator={false}
+                      showsHorizontalScrollIndicator={false}
+                      data={show}
+                      renderItem={renderContact}
+                    />
+                  </ScrollView>
+                </View>
+              )}
+            </View>
+          </ScrollView>
           <View style={styles.modal_button_container}>
             <TouchableOpacity
               onPress={toggleModal}
@@ -287,9 +285,14 @@ const Notification = ({navigation}) => {
               <Text style={styles.button_text}>Send</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
-      </Modal>
-    </ScrollView>
+        </Modal>
+      </ScrollView>
+      {role === 'Manager' ? (
+        <TouchableOpacity style={styles.button} onPress={() => toggleModal()}>
+          <Text style={styles.button_text_send}>+</Text>
+        </TouchableOpacity>
+      ) : null}
+    </View>
   );
 };
 

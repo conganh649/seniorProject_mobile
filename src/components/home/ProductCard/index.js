@@ -24,7 +24,6 @@ const ProductCard = props => {
         <Text style={styles.price}>
           {handlePriceFormat(props.product.price)}
         </Text>
-        <Text style={styles.quantity}>{props.product.quantity}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -143,15 +143,6 @@ export const DrawerNavigation = () => {
 
 const Stack = createStackNavigator();
 
-export const AuthStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
-      <Stack.Screen name="Register" component={Register}></Stack.Screen>
-    </Stack.Navigator>
-  );
-};
-
 export const RootStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -171,6 +162,15 @@ export const RootStack = () => {
         name="CulturalFamily"
         component={CulturalFamily}></Stack.Screen>
       <Stack.Screen name="Military" component={Military}></Stack.Screen>
+    </Stack.Navigator>
+  );
+};
+
+export const AuthStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
+      <Stack.Screen name="Register" component={Register}></Stack.Screen>
     </Stack.Navigator>
   );
 };

@@ -95,7 +95,6 @@ const AllProducts = ({navigation, route}) => {
           <Text style={styles.text_detail_price_collapse}>
             {handlePriceFormat(item.price)}
           </Text>
-          <Text style={styles.quantity_collapse}>{item.quantity}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -125,8 +124,10 @@ const AllProducts = ({navigation, route}) => {
             <Text style={styles.info}>{board.productName}</Text>
           </View>
           <View style={styles.boardDetail}>
-            <Text style={styles.header}>Status:</Text>
-            <Text style={styles.info}>{board.status}</Text>
+            <Text style={styles.header}>Quantity:</Text>
+            <Text style={styles.info}>
+              {board.quantity !== 0 ? board.quantity : 'Out of stock'}
+            </Text>
           </View>
           <Text style={styles.header}>Product detail:</Text>
           <Text style={styles.description}>{board.description}</Text>

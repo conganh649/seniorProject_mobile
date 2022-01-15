@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
     height: Dimensions.get('screen').height,
+    flex: 1,
     maxHeight: '110%',
   },
   header: {
@@ -43,16 +44,19 @@ export default StyleSheet.create({
     marginLeft: '60%',
   },
   button: {
+    position: 'absolute',
+    zIndex: 10,
+    elevation: 10,
+    top: 650,
+    left: 280,
     backgroundColor: '#39D5D5',
-    width: 200,
+    width: 80,
+    height: 80,
     padding: 10,
-    borderRadius: 5,
-    marginLeft: 30,
-    marginTop: 5,
+    borderRadius: 50,
   },
   button_text_send: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 40,
     color: 'white',
     textAlign: 'center',
   },
@@ -75,18 +79,21 @@ export default StyleSheet.create({
   modal_button_container: {
     marginTop: 25,
     flexDirection: 'row',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    position: 'absolute',
+    top: 620,
+    right: 15,
   },
   modal_button_cancel: {
     backgroundColor: '#FF2E2E',
     borderRadius: 5,
     marginLeft: 20,
+    width: 100,
   },
   modal_button: {
     backgroundColor: '#39D5D5',
     borderRadius: 5,
     marginLeft: 20,
+    width: 100,
   },
   button_text: {
     fontSize: 22,
@@ -98,7 +105,7 @@ export default StyleSheet.create({
   },
   input_component: {
     marginTop: 20,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   input_component_to: {
     flexDirection: 'row',
@@ -108,6 +115,7 @@ export default StyleSheet.create({
     color: '#39D5D5',
     fontFamily: 'poppins',
     fontWeight: '700',
+    marginLeft: 15,
   },
   text_input: {
     marginTop: 10,

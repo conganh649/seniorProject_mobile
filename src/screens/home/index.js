@@ -167,7 +167,7 @@ const Home = ({navigation}) => {
       <View>
         {data
           .sort((a, b) =>
-            a.quantity > b.quantity ? 1 : b.quantity > a.quantity ? -1 : 0,
+            a.quantity > b.quantity ? -1 : b.quantity > a.quantity ? 1 : 0,
           )
           .slice(0, 10)
           .map(product => (
