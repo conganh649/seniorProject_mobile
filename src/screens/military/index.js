@@ -27,7 +27,7 @@ const Military = navigation => {
     setPage(1);
     setLoading(true);
     let token = await AsyncStorage.getItem('token');
-    await fetch(`${apiUrl}api/users/military?year=${year}`, {
+    await fetch(`${apiUrl}api/users/military?year=2021`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

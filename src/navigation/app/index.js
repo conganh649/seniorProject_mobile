@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import LogIn from '../../screens/login';
 import Register from '../../screens/register';
+import News from '../../screens/news';
+import NewsDetail from '../../screens/newsDetail';
 import Home from '../../screens/home';
 import Profile from '../../screens/profile';
 import EditProfile from '../../screens/editProfile';
@@ -22,13 +24,13 @@ import OrderDetail from '../../screens/orderDetail';
 import FamilyDetail from '../../screens/familyDetail';
 const Drawer = createDrawerNavigator();
 const drawerStack = {
-  Home: {
-    screen: Home,
+  News: {
+    screen: News,
     options: {
-      title: 'Home',
+      title: 'News',
       drawerIcon: ({focused}) => (
         <IconFill
-          name="home"
+          name="read"
           size={20}
           color={focused ? '#39D5D5' : 'black'}></IconFill>
       ),
@@ -41,18 +43,6 @@ const drawerStack = {
       drawerIcon: ({focused}) => (
         <IconFill
           name="profile"
-          size={20}
-          color={focused ? '#39D5D5' : 'black'}></IconFill>
-      ),
-    },
-  },
-  Cart: {
-    screen: Cart,
-    options: {
-      title: 'Cart',
-      drawerIcon: ({focused}) => (
-        <IconFill
-          name="shopping"
           size={20}
           color={focused ? '#39D5D5' : 'black'}></IconFill>
       ),
@@ -81,6 +71,35 @@ export const DrawerNavigation = () => {
           component={component.screen}
           options={{...component.options}}></Drawer.Screen>
       ))}
+      {role !== 'Manager' ? (
+        <Drawer.Screen
+          name={'Supply Order'}
+          component={Home}
+          options={{
+            title: 'Supply Order',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="home"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}></Drawer.Screen>
+      ) : null}
+
+      {role !== 'Manager' ? (
+        <Drawer.Screen
+          name={'Cart'}
+          component={Cart}
+          options={{
+            title: 'Cart',
+            drawerIcon: ({focused}) => (
+              <IconFill
+                name="shopping"
+                size={20}
+                color={focused ? '#39D5D5' : 'black'}></IconFill>
+            ),
+          }}></Drawer.Screen>
+      ) : null}
       {role === 'Manager' ? (
         <Drawer.Screen
           name={'Order Management'}
@@ -162,6 +181,8 @@ export const RootStack = () => {
         name="CulturalFamily"
         component={CulturalFamily}></Stack.Screen>
       <Stack.Screen name="Military" component={Military}></Stack.Screen>
+      <Stack.Screen name="News" component={News}></Stack.Screen>
+      <Stack.Screen name="NewsDetail" component={NewsDetail}></Stack.Screen>
     </Stack.Navigator>
   );
 };

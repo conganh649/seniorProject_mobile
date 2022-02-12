@@ -13,6 +13,8 @@ export const _navigation = {
   FamilyDetail: 'FamilyDetail',
   CulturalFamily: 'CulturalFamily',
   Military: 'Military',
+  NewsDetail: 'NewsDetail',
+  News: 'News',
 };
 
 export const apiUrl =
