@@ -63,11 +63,13 @@ export default StyleSheet.create({
     backgroundColor: '#FF2E2E',
     borderRadius: 5,
     marginLeft: 10,
+    width: 100,
   },
   modal_button: {
     backgroundColor: '#39D5D5',
     borderRadius: 5,
     marginLeft: 20,
+    width: 100,
   },
   button_text: {
     fontSize: 22,

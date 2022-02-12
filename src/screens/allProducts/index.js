@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {Input, Text, Image} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
+import Header from '../../components/header';
 import {IconFill} from '@ant-design/icons-react-native';
 import * as Animatable from 'react-native-animatable';
 import {_navigation, apiUrl} from '../../constants';
@@ -93,7 +94,7 @@ const AllProducts = ({navigation, route}) => {
           <Text style={styles.category_collapse}>{item.category}</Text>
 
           <Text style={styles.text_detail_price_collapse}>
-            {handlePriceFormat(item.price)}
+            {handlePriceFormat(item.price)} VND
           </Text>
         </TouchableOpacity>
       </View>
@@ -101,6 +102,7 @@ const AllProducts = ({navigation, route}) => {
   };
   return (
     <View style={styles.container}>
+      <Header headerName="All products" navigation={navigation}></Header>
       <Input
         placeholder="Search"
         style={styles.search_input}
@@ -134,7 +136,10 @@ const AllProducts = ({navigation, route}) => {
           <TouchableOpacity
             style={styles.buttonSeeMore}
             onPress={() =>
-              navigation.navigate(_navigation.ProductDetail, {id: board._id})
+              navigation.navigate(_navigation.ProductDetail, {
+                id: board._id,
+                navigation: navigate,
+              })
             }>
             <Text style={styles.order}>Order here</Text>
             <IconFill name="forward" style={styles.iconOrder} />

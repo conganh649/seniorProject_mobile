@@ -22,7 +22,7 @@ const ProductCard = props => {
           {props.product.description.slice(0, 30)}
         </Text>
         <Text style={styles.price}>
-          {handlePriceFormat(props.product.price)}
+          {handlePriceFormat(props.product.price)} VND
         </Text>
       </View>
     </TouchableOpacity>

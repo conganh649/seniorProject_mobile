@@ -160,7 +160,7 @@ export default StyleSheet.create({
   },
   info_board: {
     position: 'absolute',
-    top: 430,
+    top: 460,
     width: '90%',
     height: 280,
     left: 20,

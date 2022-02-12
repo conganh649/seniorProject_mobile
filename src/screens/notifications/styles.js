@@ -8,7 +8,8 @@ export default StyleSheet.create({
     maxHeight: '110%',
   },
   header: {
-    marginLeft: '3%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     fontSize: 22,
     fontFamily: 'poppins',
     color: '#001737',

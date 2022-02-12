@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {_navigation, apiUrl} from '../../constants';
+import Header from '../../components/header';
 import styles from './styles';
 const OrderDetail = props => {
   const [data, setData] = useState();
@@ -50,6 +51,8 @@ const OrderDetail = props => {
   };
   return (
     <ScrollView style={styles.container}>
+      <Header headerName="Order detail" navigation={props.navigation}></Header>
+
       {loading ? (
         <ActivityIndicator size="large" color="red"></ActivityIndicator>
       ) : (

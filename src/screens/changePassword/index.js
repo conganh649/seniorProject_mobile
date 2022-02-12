@@ -71,6 +71,7 @@ const ChangePassword = ({navigation}) => {
   };
   return (
     <ScrollView style={styles.container}>
+      <Header headerName="Change password" navigation={navigation}></Header>
       <View style={styles.input_component}>
         <Text style={styles.input_label}>Current password</Text>
         <View style={styles.input_container}>

@@ -11,6 +11,7 @@ const NewsCard = props => {
         console.log(props.data._id);
         props.navigation.navigate(_navigation.NewsDetail, {
           id: props.data._id,
+          navigation: props.navigation,
         });
       }}>
       <Image style={styles.image} source={{uri: props.data.image}}></Image>

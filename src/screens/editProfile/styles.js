@@ -3,6 +3,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    marginBottom: '5%',
   },
   input_component: {
     marginTop: '5%',

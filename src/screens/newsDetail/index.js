@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Card, Input, Text, Image} from 'react-native-elements';
 import {IconOutline} from '@ant-design/icons-react-native';
+import Header from '../../components/header';
 import AsyncStorage from '@react-native-community/async-storage';
 import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
@@ -44,6 +45,7 @@ const NewsDetail = props => {
 
   return (
     <View style={styles.container}>
+      <Header headerName="News detail" navigation={props.navigation}></Header>
       {loading ? (
         <ActivityIndicator size="large" color="red"></ActivityIndicator>
       ) : (

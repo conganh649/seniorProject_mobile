@@ -118,7 +118,7 @@ const Military = navigation => {
           <ActivityIndicator size="large" color="red"></ActivityIndicator>
         </View>
       ) : (
-        <Table>
+        <Table style={styles.top}>
           <Row
             data={tableHead}
             style={styles.head}

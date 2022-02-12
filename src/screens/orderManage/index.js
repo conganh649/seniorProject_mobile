@@ -133,7 +133,10 @@ const OrderManage = ({navigation}) => {
           <TouchableOpacity
             key={index}
             onPress={() =>
-              navigation.navigate(_navigation.OrderDetail, {id: rowData._id})
+              navigation.navigate(_navigation.OrderDetail, {
+                id: rowData._id,
+                navigation: navigation,
+              })
             }>
             <TableWrapper style={styles.row}>
               <Cell data={rowData.name} textStyle={styles.text}></Cell>

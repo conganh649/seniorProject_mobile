@@ -56,7 +56,10 @@ const FamilyManage = ({navigation}) => {
           <TouchableOpacity
             key={index}
             onPress={() =>
-              navigation.navigate(_navigation.FamilyDetail, {id: rowData._id})
+              navigation.navigate(_navigation.FamilyDetail, {
+                id: rowData._id,
+                navigation: navigation,
+              })
             }>
             <TableWrapper style={styles.row}>
               <Cell

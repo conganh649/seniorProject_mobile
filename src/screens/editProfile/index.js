@@ -191,6 +191,7 @@ const EditProfile = ({navigation}) => {
 
   return (
     <ScrollView style={styles.container}>
+      <Header headerName="Update profile" navigation={navigation}></Header>
       <View style={styles.input_component}>
         <Text style={styles.input_label}>ID Card</Text>
         <View style={styles.input_container}>

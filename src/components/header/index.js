@@ -4,8 +4,7 @@ import styles from './styles';
 const Header = props => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate(props.clickBack)}>
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
         <Image
           style={styles.back}
           source={require('../../assets/icons/header/back.png')}></Image>

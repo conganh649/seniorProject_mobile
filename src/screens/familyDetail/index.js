@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Header from '../../components/header';
 import CulturalForm from '../../components/familyManage/culturalFamilyForm';
 import {_navigation, apiUrl} from '../../constants';
 import {IconFill} from '@ant-design/icons-react-native';
@@ -154,6 +155,7 @@ const FamilyDetail = props => {
   };
   return (
     <ScrollView style={styles.container}>
+      <Header headerName="Family detail" navigation={props.navigation}></Header>
       {loading ? (
         <ActivityIndicator size="large" color="red"></ActivityIndicator>
       ) : (

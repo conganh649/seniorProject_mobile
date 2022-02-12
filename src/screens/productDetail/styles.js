@@ -5,13 +5,13 @@ export default StyleSheet.create({
     flex: 1,
   },
   img: {
-    height: '60%',
+    height: '55%',
     width: '100%',
   },
   detail: {
     left: '5%',
     position: 'absolute',
-    top: '38%',
+    top: '33%',
     width: '90%',
   },
   product_name: {
@@ -60,6 +60,11 @@ export default StyleSheet.create({
     padding: 10,
     borderColor: '#E5E5E5',
   },
+  button_disable: {
+    borderRadius: 5,
+    borderWidth: 0,
+    padding: 10,
+  },
   icon_minus: {
     color: '#D10000',
     fontSize: 25,
@@ -70,6 +75,7 @@ export default StyleSheet.create({
     fontSize: 35,
     marginLeft: 40,
     marginRight: 40,
+    borderBottomWidth: 1,
   },
   icon_plus: {
     color: '#00A300',

@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ViewPropTypes,
+  TextInput,
 } from 'react-native';
 import {Card, Input, Text, Image} from 'react-native-elements';
 import {IconOutline} from '@ant-design/icons-react-native';
+import Header from '../../components/header';
 import AsyncStorage from '@react-native-community/async-storage';
 import {_navigation, apiUrl} from '../../constants';
 import styles from './styles';
@@ -63,6 +65,8 @@ const ProductDetail = props => {
     );
   };
   const handleAddPress = async () => {
+    console.log(Number.parseInt(number));
+    console.log(data.quantity);
     if (Number.parseInt(number) > Number.parseInt(data.quantity)) {
       alert('Invalid number of product');
     } else {
@@ -116,6 +120,9 @@ const ProductDetail = props => {
   }, []);
   return (
     <View style={styles.container}>
+      <Header
+        headerName="Product detail"
+        navigation={props.navigation}></Header>
       {loading ? (
         <ActivityIndicator size="large" color="red"></ActivityIndicator>
       ) : (
@@ -136,14 +143,19 @@ const ProductDetail = props => {
             <Text style={styles.description}>{data.description}</Text>
             <View style={styles.select_number}>
               <TouchableOpacity
-                style={styles.button}
+                style={number === '1' ? styles.button_disable : styles.button}
                 disabled={number === '1'}
                 onPress={handleMinusNumber}>
                 <IconOutline
                   name="minus"
                   style={styles.icon_minus}></IconOutline>
               </TouchableOpacity>
-              <Text style={styles.number}>{number}</Text>
+              <TextInput
+                keyboardType="number-pad"
+                style={styles.number}
+                onChangeText={val => setNumber(val)}>
+                {number}
+              </TextInput>
               <TouchableOpacity
                 style={styles.button}
                 onPress={handleAddNumber}
@@ -155,7 +167,7 @@ const ProductDetail = props => {
           <TouchableOpacity
             style={styles.add_to_order}
             onPress={() => handleAddPress()}>
-            <Text style={styles.add_text}>Add to cart - {price}</Text>
+            <Text style={styles.add_text}>Add to cart - {price} VND</Text>
           </TouchableOpacity>
         </View>
       )}
