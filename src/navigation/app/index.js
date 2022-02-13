@@ -19,10 +19,25 @@ import Notification from '../../screens/notifications';
 import AsyncStorage from '@react-native-community/async-storage';
 import {IconFill} from '@ant-design/icons-react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import OrderDetail from '../../screens/orderDetail';
 import FamilyDetail from '../../screens/familyDetail';
+import Loading from '../../screens/loading';
 const Drawer = createDrawerNavigator();
+
+const splashScreen = {
+  splash: {
+    screen: Loading,
+    options: {
+      header: () => {},
+      cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+    },
+  },
+};
+
 const drawerStack = {
   News: {
     screen: News,
@@ -162,36 +177,160 @@ export const DrawerNavigation = () => {
 
 const Stack = createStackNavigator();
 
+const authScreen = {
+  LogIn: {
+    screen: LogIn,
+    options: {
+      title: 'LogIn',
+      header: () => {},
+    },
+  },
+  Register: {
+    screen: Register,
+    options: {
+      title: 'Register',
+      header: () => {},
+    },
+  },
+};
+
+const appScreen = {
+  Home: {
+    screen: DrawerNavigation,
+    options: {
+      title: 'Home',
+      header: () => {},
+    },
+  },
+  Profile: {
+    screen: Profile,
+    options: {
+      title: 'Profile',
+    },
+  },
+
+  EditProfile: {
+    screen: EditProfile,
+    options: {
+      title: 'EditProfile',
+    },
+  },
+
+  ChangePassword: {
+    screen: ChangePassword,
+    options: {
+      title: 'ChangePassword',
+    },
+  },
+
+  AllProducts: {
+    screen: AllProducts,
+    options: {
+      title: 'AllProducts',
+    },
+  },
+
+  ProductDetail: {
+    screen: ProductDetail,
+    options: {
+      title: 'ProductDetail',
+    },
+  },
+
+  OrderDetail: {
+    screen: OrderDetail,
+    options: {
+      title: 'OrderDetail',
+    },
+  },
+
+  FamilyDetail: {
+    screen: FamilyDetail,
+    options: {
+      title: 'FamilyDetail',
+    },
+  },
+  CulturalFamily: {
+    screen: CulturalFamily,
+    options: {
+      title: 'CulturalFamily',
+    },
+  },
+  Military: {
+    screen: Military,
+    options: {
+      title: 'Military',
+    },
+  },
+  News: {
+    screen: News,
+    options: {
+      title: 'News',
+    },
+  },
+  NewsDetail: {
+    screen: NewsDetail,
+    options: {
+      title: 'NewsDetail',
+    },
+  },
+};
+
+const configSwitchScreen = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
 export const RootStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={DrawerNavigation}></Stack.Screen>
-      <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
-      <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
-      <Stack.Screen
-        name="ChangePassword"
-        component={ChangePassword}></Stack.Screen>
-      <Stack.Screen name="AllProducts" component={AllProducts}></Stack.Screen>
-      <Stack.Screen
-        name="ProductDetail"
-        component={ProductDetail}></Stack.Screen>
-      <Stack.Screen name="OrderDetail" component={OrderDetail}></Stack.Screen>
-      <Stack.Screen name="FamilyDetail" component={FamilyDetail}></Stack.Screen>
-      <Stack.Screen
-        name="CulturalFamily"
-        component={CulturalFamily}></Stack.Screen>
-      <Stack.Screen name="Military" component={Military}></Stack.Screen>
-      <Stack.Screen name="News" component={News}></Stack.Screen>
-      <Stack.Screen name="NewsDetail" component={NewsDetail}></Stack.Screen>
+      {Object.entries({
+        ...appScreen,
+      }).map(([name, component]) => {
+        return (
+          <Stack.Screen
+            key={name}
+            name={name}
+            component={component.screen}
+            options={{
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+              ...component.options,
+            }}></Stack.Screen>
+        );
+      })}
     </Stack.Navigator>
   );
 };
 
 export const AuthStack = () => {
+  const [isLoadApp, setIsLoadApp] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoadApp(false);
+    }, 2000);
+  }, []);
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
-      <Stack.Screen name="Register" component={Register}></Stack.Screen>
+      {Object.entries({
+        ...(isLoadApp ? splashScreen : authScreen),
+      }).map(([name, component]) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={component.screen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            ...component.options,
+          }}></Stack.Screen>
+      ))}
     </Stack.Navigator>
   );
 };

@@ -66,8 +66,9 @@ export default StyleSheet.create({
   },
   modal: {
     backgroundColor: '#ffffff',
-    height: '35%',
+    height: '100%',
     borderRadius: 5,
+    flex: 1,
   },
   modal_text: {
     marginTop: 20,
@@ -105,6 +106,11 @@ export default StyleSheet.create({
     padding: 10,
   },
   input_component: {
+    marginTop: 20,
+    marginLeft: 5,
+  },
+
+  input_component_modal: {
     marginTop: 20,
     marginLeft: 5,
   },
