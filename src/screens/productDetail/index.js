@@ -153,7 +153,14 @@ const ProductDetail = props => {
               <TextInput
                 keyboardType="number-pad"
                 style={styles.number}
-                onChangeText={val => setNumber(val)}>
+                onChangeText={val => {
+                  setNumber(val);
+                  setPrice(
+                    (Number.parseInt(val) * data.price)
+                      .toString()
+                      .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.'),
+                  );
+                }}>
                 {number}
               </TextInput>
               <TouchableOpacity

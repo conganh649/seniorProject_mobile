@@ -37,9 +37,7 @@ const FamilyDetail = props => {
       let token = await AsyncStorage.getItem('token');
       let newRating = data.culturalFamilyRating;
       let year = new Date().getFullYear().toString();
-      console.log(year);
       if (newRating.filter(e => e.year === year).length > 0) {
-        console.log('Vao day co cung year');
         newRating.map((item, index) => {
           if (item.year === year.toString()) {
             item.rating = total;
@@ -47,13 +45,10 @@ const FamilyDetail = props => {
         });
       } else {
         newRating.push({
-          year: new Date().getFullYear.toString(),
+          year: year,
           rating: total,
         });
       }
-      console.log(newRating);
-      console.log('====');
-      console.log(data.culturalFamilyRating);
       try {
         await fetch(`${apiUrl}api/family/` + props.route.params.id, {
           method: 'PUT',

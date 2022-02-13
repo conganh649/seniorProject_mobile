@@ -134,12 +134,14 @@ export default StyleSheet.create({
   modal_button_cancel: {
     backgroundColor: '#FF2E2E',
     borderRadius: 5,
-    marginLeft: 20,
+    marginLeft: 15,
+    width: 100,
   },
   modal_button: {
     backgroundColor: '#39D5D5',
     borderRadius: 5,
     marginLeft: 20,
+    width: 100,
   },
   button_text: {
     fontSize: 22,

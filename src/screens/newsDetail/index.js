@@ -19,20 +19,16 @@ const NewsDetail = props => {
 
   const loadNews = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch(
-      `https://dutsenior.herokuapp.com/api/news?id=` + props.route.params.id,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
+    await fetch(`${apiUrl}api/news?id=` + props.route.params.id, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson.data);
         setData(responseJson.data);
         setLoading(false);
       });

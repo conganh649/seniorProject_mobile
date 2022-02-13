@@ -74,7 +74,7 @@ const Cart = ({navigation}) => {
                     console.log(data);
                     await AsyncStorage.removeItem('cart');
                     alert('Order successfully');
-                    navigation.navigate(_navigation.Home);
+                    navigation.goBack();
                   } else {
                     alert('Something went wrong. Please try again');
                   }

@@ -17,7 +17,7 @@ const News = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const loadNews = async () => {
     let token = await AsyncStorage.getItem('token');
-    await fetch('https://dutsenior.herokuapp.com/api/news', {
+    await fetch(`${apiUrl}api/news`, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',

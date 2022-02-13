@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    marginBottom: 10,
   },
   info_view: {
     flexDirection: 'row',

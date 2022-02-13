@@ -94,10 +94,10 @@ const OrderManage = ({navigation}) => {
         .then(response => response.json())
         .then(responseJson => {
           alert("Update order's status successfully");
+          toggleModal();
         });
     } catch (err) {}
     loadData();
-    toggleModal();
   };
 
   const handleChangeFilter = () => {
@@ -109,6 +109,7 @@ const OrderManage = ({navigation}) => {
           return order.status === statusFilter;
         }),
       );
+      setPage(1);
     }
 
     toggleStatusModal();

@@ -138,7 +138,7 @@ const AllProducts = ({navigation, route}) => {
             onPress={() =>
               navigation.navigate(_navigation.ProductDetail, {
                 id: board._id,
-                navigation: navigate,
+                navigation: navigation,
               })
             }>
             <Text style={styles.order}>Order here</Text>
