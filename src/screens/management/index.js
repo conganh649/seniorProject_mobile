@@ -44,7 +44,6 @@ const Utils = ({navigation}) => {
           <Picker
             selectedValue={status}
             onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}>
-            <Picker.Item label="2017" value="2017" style={styles.picker_text} />
             <Picker.Item label="2018" value="2018" style={styles.picker_text} />
             <Picker.Item label="2019" value="2019" style={styles.picker_text} />
             <Picker.Item label="2020" value="2020" style={styles.picker_text} />
